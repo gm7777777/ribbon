@@ -41,6 +41,28 @@ public class GetURLService {
         //将请求头部和参数合成一个请求
         HttpEntity requestEntity = new HttpEntity(str, headers);
         Object ret = null;
+
+        try{
+            ret = restTemplate.postForObject(url, requestEntity,String.class);
+        }catch(Exception e){
+            System.out.println(e);
+        }finally{
+            return ret.toString();
+        }
+
+    }
+
+
+    public String recordURL(String str) {
+        String url = "http://SERVICE/getRecord";
+//        String url = "http://localhost:9100/getShortenURL";
+        HttpHeaders headers = new HttpHeaders();
+        HttpMethod method = HttpMethod.POST;
+        // 以表单的方式提交
+        headers.setContentType(MediaType.APPLICATION_JSON);
+        //将请求头部和参数合成一个请求
+        HttpEntity requestEntity = new HttpEntity(str, headers);
+        Object ret = null;
 //        List<ServiceInstance> instances = discoveryClient.getInstances("SERVICE");
 //        System.out.println("+++++++++++++++++++++++++++SHOW SERVICE URL++++++++++++++++++++++++++++++++++++++++++");
 //        if(instances.size()<1){
@@ -66,14 +88,12 @@ public class GetURLService {
 //            url = instances.get(0).getUri()+"/getShortenURL";
 //        }
 
-        try{
-            ret = restTemplate.postForObject(url, requestEntity,String.class);
-        }catch(Exception e){
+        try {
+            ret = restTemplate.postForObject(url, requestEntity, String.class);
+        } catch (Exception e) {
             System.out.println(e);
-        }finally{
+        } finally {
             return ret.toString();
         }
-
     }
-
 }

@@ -31,4 +31,20 @@ public class TestController {
 
         return getURLService.getShortenURL(jsonStr);
     }
+
+
+    @ApiOperation(value = "loadbalance interface to get record url based on /test1 address", notes = "", response = String.class, tags={ "convertURL", })
+
+    //这里是显示你可能返回的http状态，以及原因。比如404 not found, 303 see other
+    @ApiResponses(value = {
+            @ApiResponse(code = 405, message = "Invalid input", response = String.class) })
+
+    /**
+     * jsonStr 包括 id,urltr,comment,
+     */
+    @RequestMapping(value="/test1",method= RequestMethod.POST)
+    public String recordURL(@RequestBody @ApiParam(value = "json paramter inlcude id ,urlStr , comment ,shortenURL", required = true)   String jsonStr) {
+
+        return getURLService.recordURL(jsonStr);
+    }
 }
